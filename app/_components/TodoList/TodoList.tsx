@@ -104,13 +104,13 @@ export default function TodoList(props: ITodoListProps) {
           groupedTasks.map((group) => (
             <div key={group.date} className={styles.groupContainer}>
               <div className={styles.date}>
-                {new Date(group.date).toLocaleString("en-US", options)}
+                {new Date(group.date).toLocaleString(["ban", "id"], options)}
               </div>
               {group.tasks.map((todo) => (
                 <div key={todo.id} className={styles.wrapper}>
                   <Todo
                     {...todo}
-                    onClick={() => handleDeleteTask(todo.id, group.date)}
+                    onDeletingTask={() => handleDeleteTask(todo.id, group.date)}
                   />
                 </div>
               ))}

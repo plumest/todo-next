@@ -31,10 +31,15 @@ export interface ITodoListProps extends ITodoResponse {
 }
 
 export interface ITodoProps extends ITodo {
-  onClick: () => void;
+  onDeletingTask: () => void;
 }
 
 export interface IGroupedTodo {
   date: string;
   tasks: ITodo[];
+}
+
+export interface ITodoDetailProps extends ITodoProps {
+  isOpen: boolean;
+  onCloseModal: () => void;
 }

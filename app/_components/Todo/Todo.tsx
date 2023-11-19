@@ -4,22 +4,22 @@ import { ITodoProps } from "@/lib/interfaces";
 import styles from "./Todo.module.scss";
 import { useState } from "react";
 import { SwipeEventData, useSwipeable } from "react-swipeable";
+import TodoDetail from "../TodoDetail/TodoDetail";
 
 export default function Todo(props: ITodoProps) {
   const [displayDelete, setDisplayDelete] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => setDisplayDelete(() => true),
     onSwipedRight: () => setDisplayDelete(() => false),
     onSwiping: (event: SwipeEventData) => {
       if (event.velocity > 3) {
-        console.log({ event });
-        props.onClick();
+        props.onDeletingTask();
       }
     },
     onTap: () => {
-      setDisplayDelete((prev) => !prev);
-      console.log(props);
+      setIsModalOpen(() => true);
     },
     trackMouse: true,
     delta: 100,
@@ -40,11 +40,16 @@ export default function Todo(props: ITodoProps) {
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();
-          props.onClick();
+          props.onDeletingTask();
         }}
       >
         Delete
       </div>
+      <TodoDetail
+        {...props}
+        isOpen={isModalOpen}
+        onCloseModal={() => setIsModalOpen(() => false)}
+      />
     </div>
   );
 }
