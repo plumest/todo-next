@@ -6,7 +6,7 @@ import TodoList from "@/app/_components/TodoList/TodoList";
 
 export default async function TodoPage() {
   const { signal } = new AbortController();
-  const response = await fetch("http://localhost:3000/api/todo?status=TODO", {
+  const response = await fetch(`${process.env.BASE_URL}/api/todo?status=TODO`, {
     cache: "force-cache",
     signal,
   });

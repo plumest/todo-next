@@ -9,7 +9,7 @@ export const loadTodo = async (
   const { signal } = new AbortController();
   try {
     const response = await fetch(
-      `http://localhost:3000/api/todo?status=${type}&offset=${page}`,
+      `${process.env.BASE_URL}/api/todo?status=${type}&offset=${page}`,
       {
         cache: "force-cache",
         signal,
