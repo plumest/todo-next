@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   padding: 32px;
 }
@@ -8,4 +10,12 @@
 
 .loading {
   align-items: center;
+  margin-top: 16px;
+}
+
+.text,
+.loading {
+  color: $gray-600;
+  font-size: 16px;
+  font-weight: 500;
 }

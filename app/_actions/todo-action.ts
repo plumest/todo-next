@@ -16,9 +16,13 @@ export const loadTodo = async (
       }
     );
     const data: ITodoResponse = await response.json();
+
+    if (!data?.tasks?.length) {
+      return { ...data, error: { message: "Task not found.", status: 404 } };
+    }
+
     return data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

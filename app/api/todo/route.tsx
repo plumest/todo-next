@@ -28,7 +28,33 @@ export async function GET(
       { signal }
     );
     const data: ITodoResponse = await response.json();
+
+    if (!data?.tasks?.length) {
+      NextResponse.json({
+        ...data,
+        error: {
+          message: "Tasks not found.",
+          status: 404,
+          path: "app/api/todo/route.tsx",
+          function: "GET",
+        },
+      });
+    }
+
     return NextResponse.json(data);
+  } catch (e) {
+    const error = e as Error;
+    return NextResponse.json({
+      tasks: [],
+      pageNumber: 0,
+      totalPages: 0,
+      error: {
+        message: error?.message ?? "Internal server error.",
+        status: 500,
+        path: "app/api/todo/route.tsx",
+        function: "GET",
+      },
+    });
   } finally {
     controller.abort();
   }

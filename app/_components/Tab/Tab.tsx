@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import styles from "./Tab.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,10 +12,6 @@ const tabs = [
 
 export default function Tab() {
   const pathname = usePathname();
-
-  useEffect(() => {
-    console.log(pathname);
-  }, [pathname]);
 
   return (
     <div className={styles.wrapper}>

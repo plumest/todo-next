@@ -1,3 +1,4 @@
+import { TError } from ".";
 import { TodoStatusEnum } from "../enums";
 
 export type TTodoStatus = (typeof TodoStatusEnum)[keyof typeof TodoStatusEnum];
@@ -14,6 +15,7 @@ export interface ITodoResponse {
   tasks: ITodo[];
   pageNumber: number;
   totalPages: number;
+  error?: TError;
 }
 
 export interface ITodoRequest {

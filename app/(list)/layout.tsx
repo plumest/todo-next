@@ -1,5 +1,6 @@
 import styles from "./list.module.scss";
 import Tab from "@/app/_components/Tab/Tab";
+import { Toaster } from "react-hot-toast";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -14,6 +15,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
       </section>
       {children}
+      <Toaster position="top-right" />
     </main>
   );
 }
