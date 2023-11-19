@@ -1,17 +1,13 @@
-import styles from "./page.module.css";
-import { getTodos } from "@/lib/apis/todo";
+"use client";
 
-export default async function Home() {
-  const data = await getTodos({ offset: 1, limit: 10, status: "TODO" });
-  return (
-    <main className={styles.main}>
-      {data && data.tasks?.length
-        ? data.tasks.map((todo) => (
-            <div key={todo.id}>
-              {todo.title} - {todo.status}
-            </div>
-          ))
-        : null}
-    </main>
-  );
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace(`/todo`);
+  }, []);
+
+  return <></>;
 }

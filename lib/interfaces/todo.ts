@@ -23,3 +23,11 @@ export interface ITodoRequest {
   isAsc?: boolean;
   status?: string;
 }
+
+export interface ITodoListProps extends ITodoResponse {
+  status: TTodoStatus;
+}
+
+export interface ITodoProps extends ITodo {
+  onClick?: () => void;
+}
