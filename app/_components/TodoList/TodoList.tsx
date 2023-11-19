@@ -67,9 +67,26 @@ export default function TodoList(props: ITodoListProps) {
     return newGroups;
   };
 
-  const handleDeleteTask = (id: string) => {
-    setTasks(() => tasks.filter((task) => task.id !== id));
+  const handleDeleteTask = (taskId: string, groupDate: string) => {
+    const newGroupTasks = [...groupedTasks];
+    const groupIndex = groupedTasks.findIndex(
+      (group) => group.date === groupDate
+    );
+
+    if (groupIndex !== -1) {
+      newGroupTasks[groupIndex].tasks = newGroupTasks[groupIndex].tasks.filter(
+        (task) => task.id !== taskId
+      );
+
+      // Remove the group if it has no tasks
+      if (groupedTasks[groupIndex].tasks.length === 0) {
+        newGroupTasks.splice(groupIndex, 1);
+      }
+    }
+    setGroupedTasks(() => newGroupTasks);
     // NOTE: Can add server actions to call API delete task here
+    // NOTE: Can uncomment this line to delete task from UI, if calling API.
+    // setTasks(() => tasks.filter((task) => task.id !== id));
   };
 
   return (
@@ -91,7 +108,10 @@ export default function TodoList(props: ITodoListProps) {
               </div>
               {group.tasks.map((todo) => (
                 <div key={todo.id} className={styles.wrapper}>
-                  <Todo {...todo} onClick={() => handleDeleteTask(todo.id)} />
+                  <Todo
+                    {...todo}
+                    onClick={() => handleDeleteTask(todo.id, group.date)}
+                  />
                 </div>
               ))}
             </div>

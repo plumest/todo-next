@@ -3,7 +3,7 @@
 import { ITodoProps } from "@/lib/interfaces";
 import styles from "./Todo.module.scss";
 import { useState } from "react";
-import { useSwipeable } from "react-swipeable";
+import { SwipeEventData, useSwipeable } from "react-swipeable";
 
 export default function Todo(props: ITodoProps) {
   const [displayDelete, setDisplayDelete] = useState<boolean>(false);
@@ -11,6 +11,12 @@ export default function Todo(props: ITodoProps) {
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => setDisplayDelete(() => true),
     onSwipedRight: () => setDisplayDelete(() => false),
+    onSwiping: (event: SwipeEventData) => {
+      if (event.velocity > 3) {
+        console.log({ event });
+        props.onClick();
+      }
+    },
     onTap: () => {
       setDisplayDelete((prev) => !prev);
       console.log(props);
@@ -24,9 +30,6 @@ export default function Todo(props: ITodoProps) {
       <div className={styles.container} {...swipeHandlers}>
         <div className={styles.title}>{props.title}</div>
         <div className={styles.description}>{props.description}</div>
-        <div className={styles.description}>
-          {new Date(props.createdAt).toUTCString()}
-        </div>
       </div>
       <div
         className={
@@ -37,7 +40,7 @@ export default function Todo(props: ITodoProps) {
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();
-          if (props.onClick) props.onClick();
+          props.onClick();
         }}
       >
         Delete

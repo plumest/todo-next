@@ -31,7 +31,7 @@ export interface ITodoListProps extends ITodoResponse {
 }
 
 export interface ITodoProps extends ITodo {
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 export interface IGroupedTodo {
