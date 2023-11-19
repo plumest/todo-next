@@ -21,3 +21,26 @@ export const groupTasks = (
   }
   return newGroups;
 };
+
+export const deleteTask = (
+  groupedTasks: IGroupedTodo[],
+  taskId: string,
+  groupDate: string
+): IGroupedTodo[] => {
+  const newGroupTasks = [...groupedTasks];
+  const groupIndex = groupedTasks.findIndex(
+    (group) => group.date === groupDate
+  );
+
+  if (groupIndex !== -1) {
+    newGroupTasks[groupIndex].tasks = newGroupTasks[groupIndex].tasks.filter(
+      (task) => task.id !== taskId
+    );
+
+    // Remove the group if it has no tasks
+    if (groupedTasks[groupIndex].tasks.length === 0) {
+      newGroupTasks.splice(groupIndex, 1);
+    }
+  }
+  return newGroupTasks;
+};

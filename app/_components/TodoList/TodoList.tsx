@@ -7,7 +7,7 @@ import { loadTodo } from "@/app/_actions/todo-action";
 import Todo from "../Todo/Todo";
 import InfiniteScroll from "react-infinite-scroller";
 import toast from "react-hot-toast";
-import { groupTasks } from "@/app/_actions/group-task-action";
+import { deleteTask, groupTasks } from "@/app/_actions/group-task-action";
 
 const options: Intl.DateTimeFormatOptions = {
   day: "2-digit",
@@ -47,22 +47,7 @@ export default function TodoList(props: ITodoListProps) {
   };
 
   const handleDeleteTask = (taskId: string, groupDate: string) => {
-    const newGroupTasks = [...groupedTasks];
-    const groupIndex = groupedTasks.findIndex(
-      (group) => group.date === groupDate
-    );
-
-    if (groupIndex !== -1) {
-      newGroupTasks[groupIndex].tasks = newGroupTasks[groupIndex].tasks.filter(
-        (task) => task.id !== taskId
-      );
-
-      // Remove the group if it has no tasks
-      if (groupedTasks[groupIndex].tasks.length === 0) {
-        newGroupTasks.splice(groupIndex, 1);
-      }
-    }
-    setGroupedTasks(() => newGroupTasks);
+    setGroupedTasks(() => deleteTask(groupedTasks, taskId, groupDate));
     // NOTE: Can add server actions to call API delete task here
     // NOTE: Can uncomment this line to delete task from UI, if calling API.
     // setTasks(() => tasks.filter((task) => task.id !== id));
