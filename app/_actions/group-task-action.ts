@@ -1,4 +1,5 @@
 import { IGroupedTodo, ITodo } from "@/lib/interfaces";
+import toast from "react-hot-toast";
 
 export const groupTasks = (
   previousGroups: IGroupedTodo[],
@@ -41,6 +42,8 @@ export const deleteTask = (
     if (groupedTasks[groupIndex].tasks.length === 0) {
       newGroupTasks.splice(groupIndex, 1);
     }
+  } else {
+    toast.error("Task not found.");
   }
   return newGroupTasks;
 };
