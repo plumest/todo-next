@@ -7,6 +7,7 @@ import { loadTodo } from "@/app/_actions/todo-action";
 import Todo from "../Todo/Todo";
 import InfiniteScroll from "react-infinite-scroller";
 import toast from "react-hot-toast";
+import { groupTasks } from "@/app/_actions/group-task-action";
 
 const options: Intl.DateTimeFormatOptions = {
   day: "2-digit",
@@ -43,28 +44,6 @@ export default function TodoList(props: ITodoListProps) {
     setTasks((prev) => [...prev, ...data.tasks]);
     setPageNumber(() => data.pageNumber);
     setTotalPages(() => data.totalPages);
-  };
-
-  const groupTasks = (
-    previousGroups: IGroupedTodo[],
-    newTasks: ITodo[]
-  ): IGroupedTodo[] => {
-    const newGroups: IGroupedTodo[] = [...previousGroups];
-
-    for (const newTask of newTasks) {
-      const dateKey = new Date(newTask.createdAt).toISOString().split("T")[0];
-      const existingGroup = newGroups.find((group) => group.date === dateKey);
-      const existingTask = existingGroup?.tasks.find(
-        (task) => task.id === newTask.id
-      );
-
-      if (existingGroup && !existingTask) {
-        existingGroup.tasks.push(newTask);
-      } else if (!existingTask) {
-        newGroups.push({ date: dateKey, tasks: [newTask] });
-      }
-    }
-    return newGroups;
   };
 
   const handleDeleteTask = (taskId: string, groupDate: string) => {
