@@ -7,10 +7,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <section className={styles.header}>
         <div className={styles.greeting}>
           <h1>Hi!</h1>
-          <p>This is just a sample UI.</p>
-          <p>Open to create your style :D</p>
+          <p>This is my demo todo app.</p>
         </div>
-        <Tab />
+        <div className={styles.navbar}>
+          <Tab />
+        </div>
       </section>
       {children}
     </main>
