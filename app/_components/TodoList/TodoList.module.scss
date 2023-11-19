@@ -19,3 +19,20 @@
   font-size: 16px;
   font-weight: 500;
 }
+
+.groupContainer {
+  &:first-child {
+    margin-top: 16px;
+  }
+
+  &:not(:first-child) {
+    margin-top: 32px;
+  }
+}
+
+.date {
+  color: $gray-800;
+  font-size: 21px;
+  font-weight: 700;
+  padding: 0 8px;
+}

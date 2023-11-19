@@ -7,7 +7,7 @@ export interface ITodo {
   id: string;
   title: string;
   description?: string;
-  createAt: Date | string;
+  createdAt: string;
   status: TTodoStatus;
 }
 
@@ -32,4 +32,9 @@ export interface ITodoListProps extends ITodoResponse {
 
 export interface ITodoProps extends ITodo {
   onClick?: () => void;
+}
+
+export interface IGroupedTodo {
+  date: string;
+  tasks: ITodo[];
 }

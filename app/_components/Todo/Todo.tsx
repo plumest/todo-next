@@ -11,7 +11,10 @@ export default function Todo(props: ITodoProps) {
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => setDisplayDelete(() => true),
     onSwipedRight: () => setDisplayDelete(() => false),
-    onTap: () => setDisplayDelete((prev) => !prev),
+    onTap: () => {
+      setDisplayDelete((prev) => !prev);
+      console.log(props);
+    },
     trackMouse: true,
     delta: 100,
   });
@@ -21,6 +24,9 @@ export default function Todo(props: ITodoProps) {
       <div className={styles.container} {...swipeHandlers}>
         <div className={styles.title}>{props.title}</div>
         <div className={styles.description}>{props.description}</div>
+        <div className={styles.description}>
+          {new Date(props.createdAt).toUTCString()}
+        </div>
       </div>
       <div
         className={
