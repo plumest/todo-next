@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
+import "./globals.scss";
 import { Mulish } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next";
 
 const mulish = Mulish({
-  weight: ["400", "700"],
   style: ["normal"],
   subsets: ["latin"],
   display: "swap",
